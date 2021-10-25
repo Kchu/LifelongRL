@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 ###########################################################################################
-# Implementation of Count-Based Reward Shaping (CBRS)
-# Author for codes: Chu Kun(chukun1997@163.com), Abel
-# Reference: https://github.com/
+# Implementation of SR-LLRL
+# Author for codes: Chu Kun(kun_chu@outlook.com), Abel
+# Reference: https://github.com/Kchu
 ###########################################################################################
 
 # Python imports.
