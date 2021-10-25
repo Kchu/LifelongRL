@@ -14,7 +14,7 @@ To reproduce all of our plots, run main.py. Note that you must choose your learn
 
 # Acknowledgment
 
-Here I want to sincerely thank David Abel, a great young scientist. He generously shared the source code of his paper and gave detailed answers to any of my questions/doubts in the process of conducting this research. I admire his academic achievements, and more importantly, his enthusiastic help and scientific spirit.
+Here I want to sincerely thank [David Abel](https://david-abel.github.io/), a great young scientist. He generously shared the source code of his paper and gave detailed answers to any of my questions/doubts in the process of conducting this research. I admire his academic achievements, and more importantly, his enthusiastic help and scientific spirit.
 
 # Last
 
