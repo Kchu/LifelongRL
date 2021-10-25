@@ -1,6 +1,6 @@
 # Python implementation of Lifelong Reinforcement Learning (Lifelong RL / LLRL). 
 ## Note
-These codes need to import some libraries of python, especially [simple_rl](https://github.com/david-abel/simple_rl) provided by David Abel. However, please note that I have made some improvements and changes based on his codes, so please download the simple_rl inside the fold directly instead of installing the version of python official library!
+These codes need to import some libraries of python, especially [simple_rl](https://github.com/david-abel/simple_rl) provided by David Abel. However, please note that I have made some improvements and changes based on his codes, so please download the simple_rl inside the fold directly instead of installing from the python official libraries!
 # SR-LLRL
 Shaping Rewards for LifeLong Reinforcement Learning
 
