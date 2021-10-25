@@ -1,0 +1,8 @@
+{
+    "python.pythonPath": "D:\\ProgramData\\Anaconda3\\python.exe",
+    "python.workspaceSymbols.exclusionPatterns": [
+        "**/site-packages/**",
+        "**D:\\ProgramData\\Anaconda3\\Lib\\site-packages**",
+    ],
+    "git.ignoreLimitWarning": true
+}
