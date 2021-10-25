@@ -1,9 +1,9 @@
-# Python implementation of Lifelong Reinforcement Learning (Lifelong RL / LLRL). 
+# Python implementation of Lifelong Reinforcement Learning (Lifelong RL/LLRL). 
 
 ## SR-LLRL
 Shaping Rewards for LifeLong Reinforcement Learning
 
-Code for experimenting with proposed approaches to Lifelong RL, attached to our 2021 IEEE SMC paper "Accelerating lifelong reinforcement learning via reshaping rewards".
+Codes for experimenting with proposed approaches to Lifelong RL, attached to our 2021 IEEE SMC paper "Accelerating lifelong reinforcement learning via reshaping rewards".
 
 Authors: Kun Chu, Xianchao Zhu, William Zhu.
 
