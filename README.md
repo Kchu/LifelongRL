@@ -18,4 +18,4 @@ Here I want to sincerely thank [David Abel](https://david-abel.github.io/), a gr
 
 # Last
 
-Contact Kun (kun_chu@outlook.com) with any questions.
+Contact me (kun_chu@outlook.com) with any questions.
