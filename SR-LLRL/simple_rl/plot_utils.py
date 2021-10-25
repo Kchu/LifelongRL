@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+'''
+Implementation of illustrating results.
+# Author for codes: Chu Kun(kun_chu@outlook.com)
+# Reference: https://github.com/Kchu/LifelongRL
+'''
+
 import sys
 import os
 import pandas

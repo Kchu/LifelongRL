@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+
+###########################################################################################
+# Implementation of illustrating results. (Average reward for each episode)
+# Author for codes: Chu Kun(kun_chu@outlook.com)
+# Reference: https://github.com/Kchu/LifelongRL
+###########################################################################################
+
+# Python imports.
 import os
 from simple_rl.utils import chart_utils
 
