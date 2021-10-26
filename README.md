@@ -16,7 +16,7 @@ To generate experiemental results, run main.py; To draw all of our plots, run re
 ## Note
 These codes need to import some libraries of python, especially [simple_rl](https://github.com/david-abel/simple_rl) provided by [David Abel](https://github.com/david-abel). However, please note that I have made some improvements and changes based on his codes, so please download the simple_rl inside the fold directly instead of installing from the python official libraries.
 
-## Experiments Results
+## Experimental Results
 ![png1](https://github.com/Kchu/LifelongRL/blob/master/SR-LLRL/IEEE_SMC_2021_Plots/figures/Environments.png)
 ![png2](https://github.com/Kchu/LifelongRL/blob/master/SR-LLRL/IEEE_SMC_2021_Plots/figures/Result_1.png)
 ![png3](https://github.com/Kchu/LifelongRL/blob/master/SR-LLRL/IEEE_SMC_2021_Plots/figures/Result_2.png)
