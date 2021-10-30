@@ -46,7 +46,9 @@ class Experiment(object):
                     track_disc_reward=False,
                     clear_old_results=True,
                     count_r_per_n_timestep=1,
-                    cumulative_plot=True):
+                    cumulative_plot=True,
+                    vs_task=True,
+                    alg="q-learning"):
         '''
         Args:
             agents (list)
@@ -75,10 +77,14 @@ class Experiment(object):
         self.name = str(self.mdp)
         self.rewards = defaultdict(list)
         self.times = defaultdict(list)
-        self.exp_directory = Experiment.RESULTS_DIR + self.name
+        if vs_task:
+            self.exp_directory = Experiment.RESULTS_DIR + self.name + "-" + alg + "-vs_task"
+        else:
+            self.exp_directory = Experiment.RESULTS_DIR + self.name + "-" + alg + "-vs_episode"
         self.is_episodic = is_episodic
         self.is_markov_game = is_markov_game
-        self._setup_files(clear_old_results)
+        self._setup_files(clear_old_results
+        )
 
     def _setup_files(self, clear_old_results=True):
         '''

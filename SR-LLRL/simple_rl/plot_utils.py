@@ -213,7 +213,7 @@ def averaged_lifelong_plot(
     _lgd = True
     _lgd_btm = True
     _cst = False
-    plot(path, pdf_name = output_dir + path.split("\\")[-2] + '-Task', agents=agents, x=x_t, y=trt, y_lo=trt_lo, y_up=trt_up,
+    plot(path, pdf_name = output_dir + path.split('\\')[-3], agents=agents, x=x_t, y=trt, y_lo=trt_lo, y_up=trt_up,
          x_label=x_label_t, y_label=y_labels[2], title_prefix=r'Average Reward: ', open_plot=open_plot,
          plot_title=plot_title, plot_legend=_lgd, legend_at_bottom=_lgd_btm, figure_title=figure_title,
          ma=tasks_moving_average, ma_width=tasks_ma_width, latex_rendering=latex_rendering, custom=_cst)

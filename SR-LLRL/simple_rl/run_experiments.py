@@ -164,7 +164,9 @@ def run_agents_lifelong(agents,
                             track_disc_reward=False,
                             reset_at_terminal=False,
                             resample_at_terminal=False,
-                            cumulative_plot=True):
+                            cumulative_plot=True,
+                            vs_task=True,
+                            alg=None):
     '''
     Args:
         agents (list)
@@ -200,7 +202,9 @@ def run_agents_lifelong(agents,
                 is_lifelong=True,
                 clear_old_results=clear_old_results,
                 track_disc_reward=track_disc_reward,
-                cumulative_plot=cumulative_plot)
+                cumulative_plot=cumulative_plot,
+                vs_task=vs_task,
+                alg=alg)
 
     # Record how long each agent spends learning.
     print("Running experiment: \n" + str(experiment))
@@ -260,10 +264,10 @@ def run_agents_lifelong(agents,
     print("-------------\n")
 
     # experiment.make_plots(open_plot=open_plot)
-    path = os.path.join(experiment.exp_directory + '/')
-    lifelong_plot(agents, path, samples, episodes, confidence=0.95, open_plot=open_plot, plot_title=True, plot_legend=True,
-                episodes_moving_average=False, episodes_ma_width=10, 
-                tasks_moving_average=False, tasks_ma_width=10, latex_rendering=False)
+    # path = os.path.join(experiment.exp_directory + '/')
+    # lifelong_plot(agents, path, output_dir='.\Plots', n_tasks=samples, n_episodes=episodes, confidence=0.95, open_plot=open_plot, plot_title=True, plot_legend=True,
+    #             episodes_moving_average=False, episodes_ma_width=10, 
+    #             tasks_moving_average=False, tasks_ma_width=10, latex_rendering=False)
 
 def run_agents_on_mdp(agents,
                         mdp,

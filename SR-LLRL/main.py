@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
 ###########################################################################################
-# Implementation of SR-LLRL
+# Implementation for experimenting with proposed approaches to Lifelong RL, 
+# attached to our 2021 IEEE SMC paper 
+# "Accelerating lifelong reinforcement learning via reshaping rewards".
 # Author for codes: Chu Kun(kun_chu@outlook.com), Abel
-# Reference: https://github.com/Kchu
+# Reference: https://github.com/Kchu/LifelongRL
 ###########################################################################################
 
 # Python imports.
@@ -44,11 +46,11 @@ def parse_args():
         Parse all arguments
     '''
     parser = argparse.ArgumentParser()
-    parser.add_argument("-mdp_class", type = str, default = "two_room", nargs = '?', help = "Choose the mdp type (one of {octo, hall, grid, taxi, four_room}).")
+    parser.add_argument("-mdp_class", type = str, default = "four_room", nargs = '?', help = "Choose the mdp type (one of {octo, hall, grid, taxi, four_room}).")
     parser.add_argument("-goal_terminal", type = bool, default = True, nargs = '?', help = "Whether the goal is terminal.")
-    parser.add_argument("-samples", type = int, default = 40, nargs = '?', help = "Number of samples for the experiment.")
-    parser.add_argument("-instances", type = int, default = 5, nargs = '?', help = "Number of instances for the experiment.")
-    parser.add_argument("-baselines_type", type = str, default = "delayed-q", nargs = '?', help = "Type of agents: (q, rmax, delayed-q).")
+    parser.add_argument("-samples", type = int, default = 1, nargs = '?', help = "Number of samples for the experiment.")
+    parser.add_argument("-instances", type = int, default = 1, nargs = '?', help = "Number of instances for the experiment.")
+    parser.add_argument("-baselines_type", type = str, default = "q", nargs = '?', help = "Type of agents: (q, rmax, delayed-q).")
     args = parser.parse_args()
 
     return args.mdp_class, args.goal_terminal, args.samples, args.instances, args.baselines_type
@@ -75,6 +77,7 @@ def main(open_plot=True):
     steps = 100
     gamma = 0.95
     mdp_size = 11
+    vs_task = True
     mdp_class, is_goal_terminal, samples, instance_number, baselines = parse_args()
     
     # Setup multitask setting.
@@ -103,7 +106,7 @@ def main(open_plot=True):
         lrate = 0.1
         
         # basic q-learning agent
-        Baselines = QLearningAgent(actions, gamma=gamma, alpha=lrate, epsilon=eps, name="Baselines")
+        Baseline = QLearningAgent(actions, gamma=gamma, alpha=lrate, epsilon=eps, name="Baseline")
         
         # basic q-learning agent with vmax initialization
         # pure_ql_agent_opt = QLearningAgent(actions, gamma=gamma, alpha=lrate, epsilon=eps, default_q=vmax, name="VTR")        
@@ -114,15 +117,11 @@ def main(open_plot=True):
         # Ideal agent
         Ideal = QLearningAgent(actions, init_q=opt_q_func, gamma=gamma, alpha=lrate, epsilon=eps, name="Ideal")
 
-        # ALLRL-RS agent
-        ALLRL_RS = LRSQLearningAgent(actions, alpha=lrate, epsilon=eps, gamma=gamma, default_q=vmax, name="ALLRL-RS")
-        test_1 = LRSQLearningAgent(actions, alpha=lrate, beta = 0.04, epsilon=eps, gamma=gamma, default_q=vmax, name="LRS_0.04")
-        test_2 = LRSQLearningAgent(actions, alpha=lrate, beta = 0.05, epsilon=eps, gamma=gamma, default_q=vmax, name="LRS_0.05")
-        test_3 = LRSQLearningAgent(actions, alpha=lrate, beta = 0.03, epsilon=eps, gamma=gamma, default_q=vmax, name="LRS_0.03")
-
+        # SR-LLRL agent
+        SR_LLRL = LRSQLearningAgent(actions, alpha=lrate, epsilon=eps, gamma=gamma, default_q=vmax, name="SR_LLRL")
         # agents
-        agents = [Ideal, MaxQinit, ALLRL_RS, Baselines]
-        agents = [Ideal, MaxQinit, test_1, test_2, test_3]
+        agents = [Ideal, MaxQinit, SR_LLRL, Baseline]
+        alg = "q-learning"
 
     elif baselines == "delayed-q":
         # parameter for delayed-q
@@ -130,7 +129,7 @@ def main(open_plot=True):
         min_experience = 5
 
         # basic delayed-q agent
-        Baselines = DelayedQAgent(actions, init_q=vmax_func, gamma=gamma, m=min_experience, epsilon1=torelance, name="Baselines")
+        Baseline = DelayedQAgent(actions, init_q=vmax_func, gamma=gamma, m=min_experience, epsilon1=torelance, name="Baseline")
 
         # MaxQinit agent
         MaxQinit = MaxQinitDelayedQAgent(actions, init_q = vmax_func, default_q=vmax, gamma=gamma, m=min_experience, epsilon1=torelance, name="MaxQInit")
@@ -139,23 +138,19 @@ def main(open_plot=True):
         Ideal = DelayedQAgent(actions, init_q=opt_q_func, gamma=gamma, m=min_experience, epsilon1=torelance, name="Ideal")
         
         # ALLRL-RS agent
-        ALLRL_RS = LRSDelayedQAgent(actions, init_q = vmax_func, gamma=gamma, default_q=vmax, m=min_experience, epsilon1=torelance, name="ALLRL-RS")
-
-        test_1 = LRSDelayedQAgent(actions, init_q = vmax_func, beta = 0.04, gamma=gamma, default_q=vmax, m=min_experience, epsilon1=torelance, name="LRS_0.04")
-        test_2 = LRSDelayedQAgent(actions, init_q = vmax_func, beta = 0.05, gamma=gamma, default_q=vmax, m=min_experience, epsilon1=torelance, name="LRS_0.05")
-        test_3 = LRSDelayedQAgent(actions, init_q = vmax_func, beta = 0.03, gamma=gamma, default_q=vmax, m=min_experience, epsilon1=torelance, name="LRS_0.03")
-
+        SR_LLRL = LRSDelayedQAgent(actions, init_q = vmax_func, gamma=gamma, default_q=vmax, m=min_experience, epsilon1=torelance, name="SR_LLRL")
         # agents
-        agents = [Ideal, MaxQinit, ALLRL_RS, Baselines]
-        # agents = [Ideal]
-        agents = [Ideal, MaxQinit, test_1, test_2, test_3]
+        agents = [Ideal, MaxQinit, SR_LLRL, Baseline]
+        alg = "delayed-q"
 
     else:
         msg = "Unknown type of agent:" + baselines + ". Use -agent_type (q, rmax, delayed-q)"
         assert False, msg
 
     # Experiment body
-    run_agents_lifelong(agents, mdp_distr, samples=samples, episodes=episodes, steps=steps, instances=instance_number, reset_at_terminal=is_goal_terminal, track_disc_reward=False, cumulative_plot=False, open_plot=open_plot)
+    run_agents_lifelong(agents, mdp_distr, vs_task=vs_task, samples=samples, episodes=episodes, steps=steps, 
+                        instances=instance_number, reset_at_terminal=is_goal_terminal, alg=alg,
+                        track_disc_reward=False, cumulative_plot=False, open_plot=open_plot)
 
 if __name__ == "__main__":
     open_plot = True

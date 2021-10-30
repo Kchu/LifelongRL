@@ -1,7 +1,7 @@
 ###########################################################################################
-# Implementation of Lifetime Reward Shaping (CBRS)
-# Author for codes: Chu Kun(chukun1997@163.com)
-# Reference: https://github.com/
+# Implementation of Q-Learning Agent with Lifetime Reward Shaping Function
+# Author for codes: Chu Kun(kun_chu@outlook.com)
+# Reference: https://github.com/Kchu/LifelongRL
 ###########################################################################################
 
 # Python imports.
@@ -22,7 +22,7 @@ def sigmod(x):
 class LRSQLearningAgent(Agent):
     ''' Implementation for a CBRS Q Learning Agent '''
 
-    def __init__(self, actions, name="LRS-Q-learning", init_q=None, alpha=0.05, gamma=0.99, beta=1-0.99, epsilon=0.1, explore="uniform", anneal=False, default_q=1.0/(1.0-0.99)):
+    def __init__(self, actions, name="LRS-Q-learning", init_q=None, alpha=0.05, gamma=0.99, epsilon=0.1, explore="uniform", anneal=False, default_q=1.0/(1.0-0.99)):
         # state_n, action_n,
         '''
         Args:
@@ -38,7 +38,6 @@ class LRSQLearningAgent(Agent):
 
         # Set/initialize parameters and other relevant classwide data
         self.alpha, self.alpha_init = alpha, alpha
-        self.beta = beta
         self.epsilon, self.epsilon_init = epsilon, epsilon
         self.step_number = 0
         self.anneal = anneal
@@ -196,11 +195,11 @@ class LRSQLearningAgent(Agent):
 
         return max_q_val, best_action
 
-    # compute count reward based on the counts and f2 formula
+    # compute LRS reward function
     def _compute_count_reward(self):
         for x in self.count_sa:
             for y in self.count_sa[x]:
-                self.reward_sa[x][y] = self.beta * ((self.count_sa[x][y] / self.count_s[x])) * self.default_q
+                self.reward_sa[x][y] = (1- self.gamma) * ((self.count_sa[x][y] / self.count_s[x])) * self.default_q
 
     def get_max_q_action(self, state):
         '''

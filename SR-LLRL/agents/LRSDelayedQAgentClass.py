@@ -1,7 +1,7 @@
 ###########################################################################################
-# Implementation of Lifelong Reward Shaping (LRS)
-# Author for codes: Chu Kun(chukun1997@163.com)
-# Reference: 
+# Implementation of Delayed Q-Learning Agent with Lifetime Reward Shaping Function
+# Author for codes: Chu Kun(kun_chu@outlook.com)
+# Reference: https://github.com/Kchu/LifelongRL
 ###########################################################################################
 
 # Python imports.
@@ -19,7 +19,7 @@ class LRSDelayedQAgent(Agent):
     Delayed-Q Learning Agent (Strehl, A.L., Li, L., Wiewiora, E., Langford, J. and Littman, M.L., 2006. PAC model-free reinforcement learning).
     '''
 
-    def __init__(self, actions, init_q=None, beta=1-0.99, default_q=1.0/(1.0-0.99), name="LRS-delayed-Q-learning", gamma=0.99, m=5, epsilon1=0.1):
+    def __init__(self, actions, init_q=None, default_q=1.0/(1.0-0.99), name="LRS-delayed-Q-learning", gamma=0.99, m=5, epsilon1=0.1):
         '''
         Args:
             actions (list): Contains strings denoting the actions.
@@ -31,7 +31,6 @@ class LRSDelayedQAgent(Agent):
         '''
         # Set initial q func.
         self.rmax = 1  # TODO: set/get function
-        self.beta = beta
         self.init_q = defaultdict(lambda : defaultdict(lambda: default_q)) if init_q is None else init_q
         self.default_q = default_q
         self.default_q_func = copy.deepcopy(self.init_q)
@@ -169,10 +168,11 @@ class LRSDelayedQAgent(Agent):
 
         return max_q_val, best_action
 
+    # compute LRS reward function
     def _compute_count_reward(self):
         for x in self.count_sa:
             for y in self.count_sa[x]:
-                self.reward_sa[x][y] = self.beta * ((self.count_sa[x][y] / self.count_s[x])) * self.default_q
+                self.reward_sa[x][y] = (1-self.gamma) * ((self.count_sa[x][y] / self.count_s[x])) * self.default_q
 
     def get_max_q_action(self, state):
         '''

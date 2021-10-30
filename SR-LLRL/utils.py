@@ -83,8 +83,8 @@ def make_mdp_distr(mdp_class, is_goal_terminal, mdp_size=11, horizon=0, gamma=0.
 
     # MDP Probability.
     num_mdps = 10 if mdp_class not in list(changing_entities.keys()) else len(changing_entities[mdp_class])
-    if mdp_class == "octo":
-        num_mdps = 12
+    # if mdp_class == "octo":
+    #     num_mdps = 12
     mdp_prob = 1.0 / num_mdps
 
     for i in range(num_mdps):
@@ -95,7 +95,7 @@ def make_mdp_distr(mdp_class, is_goal_terminal, mdp_size=11, horizon=0, gamma=0.
                     "maze":GridWorldMDP(width=width, height=height, rand_init=False, step_cost=0.0, walls=changing_entities["maze"][i%len(changing_entities["maze"])], goal_locs=[(mdp_size, mdp_size)], is_goal_terminal=is_goal_terminal, name="maze_world"),
                     # "maze":GridWorldMDP(width=width, height=height, rand_init=False, step_cost=0.0, walls=maze_walls, goal_locs=[changing_entities["maze"][i%len(changing_entities["maze"])]], is_goal_terminal=is_goal_terminal, name="maze_world"),
                     "four_room":FourRoomMDP(width=width, height=height, rand_init=False, goal_locs=[changing_entities["four_room"][i % len(changing_entities["four_room"])]], is_goal_terminal=is_goal_terminal),
-                    "octo":make_grid_world_from_file("octogrid.txt", num_goals=12, randomize=False, goal_num=i),
+                    # "octo":make_grid_world_from_file("octogrid.txt", num_goals=12, randomize=False, goal_num=i),
                     "corridor":GridWorldMDP(width=20, height=1, init_loc=(10, 1), goal_locs=[changing_entities["corridor"][i % len(changing_entities["corridor"])]], is_goal_terminal=is_goal_terminal, name="corridor"),
                     "combo_lock":ComboLockMDP(combo=changing_entities["combo_lock"][i%len(changing_entities["combo_lock"])]),
                     "spread":GridWorldMDP(width=width, height=height, rand_init=False, goal_locs=[changing_entities["spread"][i % len(changing_entities["spread"])]], is_goal_terminal=is_goal_terminal, name="spread_grid"),

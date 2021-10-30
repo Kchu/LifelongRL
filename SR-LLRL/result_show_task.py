@@ -2,7 +2,7 @@
 
 ###########################################################################################
 # Implementation of illustrating results. (Average reward for each task)
-# Author for codes: Chu Kun(kun_chu@outlook.com)
+# Author for codes: Chu Kun(kun_chu@outlook.com), Abel
 # Reference: https://github.com/Kchu/LifelongRL
 ###########################################################################################
 
@@ -41,10 +41,8 @@ def main():
         For manual plotting.
     '''
     # Parameter
-    data_dir = ["D:\\MyPapers\\Results_vs_Tasks\\DelayedQ-FourRoom\\", "D:\\MyPapers\\Results_vs_Tasks\\DelayedQ-Lava\\",
-                "D:\\MyPapers\\Results_vs_Tasks\\DelayedQ-Maze\\", "D:\\MyPapers\\Results_vs_Tasks\\Q-FourRoom\\", "D:\\MyPapers\\Results_vs_Tasks\\Q-Lava\\",
-                "D:\\MyPapers\\Results_vs_Tasks\\Q-Maze\\"]
-    output_dir = "D:\\MyPapers\\Plots\\"
+    data_dir = [r'.\results\lifelong-four_room_h-11_w-11-q-learning-vs_task\\']
+    output_dir = r'.\plots\\'
 
     # Format data dir
 
