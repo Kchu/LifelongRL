@@ -8,9 +8,9 @@ Codes for experimenting with proposed approaches to Lifelong RL, attached to our
 
 Authors: Kun Chu, Xianchao Zhu, William Zhu.
 
-The paper will be publicly accessible soon.
+If you use these codes, please **cite our paper** as
 
-**If you use these codes, please cite our paper.**
+K. Chu, X. Zhu and W. Zhu, "Accelerating Lifelong Reinforcement Learning via Reshaping Rewards*," 2021 IEEE International Conference on Systems, Man, and Cybernetics (SMC), 2021, pp. 619-624, doi: 10.1109/SMC52423.2021.9659064.
 
 ## Usage
 To generate experiemental results, run main.py; 
